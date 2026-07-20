@@ -1,0 +1,47 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>prac.fin</groupId>
+    <artifactId>PaymentGateway</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>reconciliation-service</artifactId>
+  <packaging>jar</packaging>
+  
+  <dependencies>
+  	 	<!-- Common -->
+	    <dependency>
+	        <groupId>prac.fin</groupId>
+	        <artifactId>common</artifactId>
+	    </dependency>
+	
+	    <!-- Domain -->
+	    <dependency>
+	        <groupId>prac.fin</groupId>
+	        <artifactId>domain</artifactId>
+	    </dependency>
+	    
+	    <!-- To check status of a transaction -->
+	    <dependency>
+	        <groupId>prac.fin</groupId>
+	        <artifactId>processor-service</artifactId>
+	    </dependency>
+	    
+	    <!-- Spring JPA for @Transactional -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        
+         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        
+        <!-- Kafka for consuming payment outcome events -->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+  </dependencies>
+</project>

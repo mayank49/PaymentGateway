@@ -1,0 +1,62 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>prac.fin</groupId>
+    <artifactId>PaymentGateway</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>processor-service</artifactId>
+  <packaging>jar</packaging>
+  
+  <dependencies>
+
+        <!-- Common: exceptions (PaymentDeclinedException, ProcessorException) -->
+        <dependency>
+            <groupId>prac.fin</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
+
+        <!-- Domain: Transaction entity + repository — we write transaction rows here -->
+        <dependency>
+            <groupId>prac.fin</groupId>
+            <artifactId>domain</artifactId>
+        </dependency>
+        
+        <dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+        <!-- Spring JPA for @Transactional -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        
+        <!-- Razorpay SDK — the only module that imports this -->
+        <dependency>
+            <groupId>com.razorpay</groupId>
+            <artifactId>razorpay-java</artifactId>
+        </dependency>
+        
+        <dependency>
+		    <groupId>com.stripe</groupId>
+		    <artifactId>stripe-java</artifactId>
+		    <scope>compile</scope>
+		</dependency>
+
+        <!-- @ConfigurationProperties for reading razorpay.* from application.yml -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        
+        <!-- CSV parsing for processor settlement files -->
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+        </dependency>
+        
+  </dependencies>
+</project>

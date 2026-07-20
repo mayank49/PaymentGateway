@@ -1,0 +1,35 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>prac.fin</groupId>
+    <artifactId>PaymentGateway</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>intent-service</artifactId>
+  <packaging>jar</packaging>
+  
+  <dependencies>
+
+        <!--
+            Needs common for DTOs and exceptions,
+            and domain for the PaymentIntent entity and its repository.
+            These are the only two internal dependencies this module needs.
+        -->
+        <dependency>
+            <groupId>prac.fin</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>prac.fin</groupId>
+            <artifactId>domain</artifactId>
+        </dependency>
+
+        <!-- @Service, @Transactional, dependency injection -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>

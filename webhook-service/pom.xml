@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>prac.fin</groupId>
+    <artifactId>PaymentGateway</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>webhook-service</artifactId>
+  <packaging>jar</packaging>
+  
+  <dependencies>
+  		<!-- Common: PaymentEventMessage DTO -->
+        <dependency>
+            <groupId>prac.fin</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
+ 
+        <!-- Domain: WebhookEvent entity + repository -->
+        <dependency>
+            <groupId>prac.fin</groupId>
+            <artifactId>domain</artifactId>
+        </dependency>
+ 
+        <!-- @Transactional, JPA -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        
+         <!-- @Scheduled -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        
+        <!-- HTTP calls to merchant webhook URLs -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        
+        <!-- Kafka for consuming payment outcome events -->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+        
+        <!-- JSON serialization of webhook payload -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+  </dependencies>
+</project>

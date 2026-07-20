@@ -1,0 +1,88 @@
+spring:
+  application:
+    name: payment-gateway
+  
+# --- DATABASE ---
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/payment_gateway}
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 5
+      connection-timeout: 30000
+  
+  jpa:
+    hibernate:
+      ddl-auto: validate # Flyway owns the schema. JPA only validates.
+    show-sql: false # Set to true for debugging
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        # Required for @CreationDate / @LastModifiedDate on BaseEntity
+        jdbc:
+          time_zone: UTC
+  
+# --- FLYWAY ---
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: false  # Never silently baseline a non-empty schema
+    
+# --- REDIS ---
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      lettuce:
+        pool:
+         max-active: 10
+         min-idle: 2
+  
+# --- JACKSON ---
+  jackson:
+    # Serialize Instant as ISO-8601 string, not a Unix timestamp array
+    # e.g. "2024-01-15T10:30:00Z" instead of [2024, 15, 10, 30, 0]
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+    default-property-inclusion: non_null
+  
+# --- APPLICATION LEVEL CONFIG ---
+
+app:
+  processor:
+    default: ${DEFAULT_PROCESSOR:razorpay}
+    
+# --- PROCESSOR CREDENTIALS ---
+
+razorpay:
+  key-id: ${RAZORPAY_KEY_ID}
+  key-secret: ${RAZORPAY_KEY_SECRET}
+  webhook-secret: ${RAZORPAY_WEBHOOK_SECRET}
+  callback-url: ${RAZORPAY_CALLBACK_URL:https://pay.gateway.com/webhooks/razorpay/callback}
+ 
+payu:
+  merchant-key: ${PAYU_MERCHANT_KEY:}
+  salt: ${PAYU_SALT:}
+  payment-url: ${PAYU_PAYMENT_URL:https://apitest.payu.in/v2/payments}
+  refund-url: ${PAYU_REFUND_URL:https://apitest.payu.in/v2/payments}
+  verify-url: ${PAYU_VERIFY_URL:https://test.payu.in/v3/transaction}
+  success-url: ${PAYU_SUCCESS_URL:https://pay.gateway.com/webhooks/payu/success}
+  failure-url: ${PAYU_FAILURE_URL:https://pay.gateway.com/webhooks/payu/failure}
+ 
+stripe:
+  secret-key: ${STRIPE_SECRET_KEY:}
+  webhook-secret: ${STRIPE_WEBHOOK_SECRET:}
+  
+# --- LOGGING ---
+logging:
+  level:
+    prac.fin: INFO
+    org.hibernate.SQL: WARN
+    # Set to DEBUG locally to see all SQL:
+    # org.hibernate.SQL: DEBUG
+    # org.hibernate.type.descriptor.sql: TRACE
